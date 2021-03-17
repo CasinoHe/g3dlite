@@ -4,4 +4,4 @@ g3dlite library from https://github.com/mangos/mangosDeps/tree/master/g3dlite(1a
 
 ## build status
 
-![linuxbuil workflow](https://github.com/CasinoHe/actions/workflows/linux.yml/badge.svg)
+![linuxbuild workflow](https://github.com/CasinoHe/g3dlite/actions/workflows/linux.yml/badge.svg)
