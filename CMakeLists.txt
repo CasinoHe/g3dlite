@@ -59,11 +59,6 @@ add_library(g3dlite STATIC
     G3D/uint128.cpp
 )
 
-target_link_libraries(g3dlite
-    PRIVATE
-        ZLIB::ZLIB
-)
-
 target_include_directories(g3dlite
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
