@@ -119,6 +119,9 @@ public:
     float length() const;
     float squaredLength() const;
 
+    float magnitude() const;
+    Vector4 direction() const;
+
     inline float sum() const {
         return x + y + z + w;
     }
@@ -690,6 +693,18 @@ inline bool Vector4::isUnit() const {
 
 inline float Vector4::length() const {
     return sqrtf(squaredLength());
+}
+
+//----------------------------------------------------------------------------
+inline float Vector4::magnitude() const {
+    return ::sqrtf(x * x + y * y + z * z + w * w);
+}
+
+//----------------------------------------------------------------------------
+inline Vector4 Vector4::direction() const {
+    const double lenSquared = x * x + y * y + z * z + w * w;
+    const float invSqrt = 1.0f / sqrtf(lenSquared);
+    return Vector4(x * invSqrt, y * invSqrt, z * invSqrt, w * invSqrt);
 }
 
 //----------------------------------------------------------------------------

@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-add_library(g3dlite STATIC
+set(G3DLITE_SRCS 
     G3D/AABox.cpp
     G3D/Any.cpp
     G3D/BinaryFormat.cpp
@@ -59,6 +59,13 @@ add_library(g3dlite STATIC
     G3D/uint128.cpp
 )
 
+add_library(g3dliteStatic STATIC ${G3DLITE_SRCS})
+add_library(g3dlite SHARED ${G3DLITE_SRCS})
+
 target_include_directories(g3dlite
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_include_directories(g3dliteStatic
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
