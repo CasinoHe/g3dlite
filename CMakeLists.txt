@@ -13,6 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+cmake_minimum_required(VERSION 3.16.0)
+
+project(g3dlite)
 
 set(G3DLITE_SRCS 
     G3D/AABox.cpp
@@ -59,13 +62,36 @@ set(G3DLITE_SRCS
     G3D/uint128.cpp
 )
 
-add_library(g3dliteStatic STATIC ${G3DLITE_SRCS})
-add_library(g3dlite SHARED ${G3DLITE_SRCS})
+add_library(${PROJECT_NAME}Static STATIC ${G3DLITE_SRCS})
+add_library(${PROJECT_NAME} SHARED ${G3DLITE_SRCS})
 
-target_include_directories(g3dlite
+target_include_directories(${PROJECT_NAME}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_include_directories(g3dliteStatic
+target_include_directories(${PROJECT_NAME}Static
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+# install headers
+if (NOT EXISTS ${CMAKE_INSTALL_PREFIX}/include)
+  file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/include)
+endif()
+
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/G3D"
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+    FILES_MATCHING PATTERN "*.h")
+
+install(TARGETS ${PROJECT_NAME}
+    EXPORT ${PROJECT_NAME}-targets
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(TARGETS ${PROJECT_NAME}Static
+    EXPORT ${PROJECT_NAME}Static-targets
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
